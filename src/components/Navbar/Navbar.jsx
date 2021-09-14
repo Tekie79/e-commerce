@@ -11,15 +11,23 @@ import {
 import { ShoppingCart } from "@material-ui/icons";
 import logo from "../../assets/shoppers.png";
 import useStyles from "./styles";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = ({ totalItems }) => {
   const classes = useStyles();
+  const location = useLocation();
 
   return (
     <>
       <AppBar position="fixed" className={classes.appBar} color="inherit">
         <Toolbar>
-          <Typography variant="h4" className={classes.title} color="inherit">
+          <Typography
+            component={Link}
+            to="/"
+            variant="h4"
+            className={classes.title}
+            color="inherit"
+          >
             <img
               src={logo}
               alt="Shoeppers.com"
@@ -30,13 +38,19 @@ const Navbar = ({ totalItems }) => {
           </Typography>
 
           <div className={classes.grow} />
+          {location.pathname==='/' && (
           <div className={classes.button}>
-            <IconButton aria-label="Show cart items" color="inherit">
+            <IconButton
+              component={Link}
+              to="/cart"
+              aria-label="Show cart items"
+              color="inherit"
+            >
               <Badge badgeContent={totalItems} color="secondary">
                 <ShoppingCart />
               </Badge>
             </IconButton>
-          </div>
+          </div>)}
         </Toolbar>
         <Typography className={classes.tag}>Your Online Shoe Store</Typography>
       </AppBar>
